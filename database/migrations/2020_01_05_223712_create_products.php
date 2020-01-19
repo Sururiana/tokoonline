@@ -17,7 +17,7 @@ class CreateProducts extends Migration
             $table->bigIncrements('id');
             $table->string('product',60);
             $table->decimal('price',15,2);
-            $table->bigInteger('stok');
+            $table->bigInteger('stock');
             $table->text('description')->nullable();
             $table->timestamps();
         });

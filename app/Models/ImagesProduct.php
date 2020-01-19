@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImagesProduct extends Model
 {
-    protected $table = 'Images_product';
+    protected $table = 'images_product';
     protected $guarded = ['id'];
 
     public function productRelation(){
-        $this->hasMany('App\Models\Product','id',"product_id");
+        return $this->hasMany('App\Models\Product','id',"product_id");
     }
 }

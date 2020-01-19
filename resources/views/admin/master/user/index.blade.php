@@ -1,12 +1,6 @@
 @extends('template.app')
 
 @section('pagetitle','Master User')
-
-@section('customcss')
-    <link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('/plugins/datatables/jquery.dataTables.min.css') }}">
-@endsection
-
 @section('content')
 <!-- Default box -->
     <div class="box box-primary">

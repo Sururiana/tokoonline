@@ -139,6 +139,8 @@
 					</a>
 					<ul class="treeview-menu">
 						<li style="margin-left:15px;"><a href="{{ route('data.users') }}"><i class="fa fa-users"></i> Users</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-dropbox"></i> Product</a></li>
+
 						{{-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> --}}
 					</ul>
 				</li>

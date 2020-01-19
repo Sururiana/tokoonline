@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ImagesProduct;
+use App\Models\Product;
 
 class ProductsController extends Controller
 {
@@ -14,7 +16,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate(10);
+
+        return view('admin.master.product.index',compact('products'));
     }
 
     /**
@@ -35,7 +39,40 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        DB::beginTransaction();
+
+        try {
+            //menyimpan data produk
+            $product = Product :: create([
+                //kolom-ditabel => inputan-user
+                "product"=> $request ->product,
+                "price"=> $request ->price,
+                "stock"=> $request ->stock,
+                "description"=> $request ->description,
+            ]);
+            //menyimpan-images
+            if ($request->hasFile('images')) {
+                $arrayImage = [];
+                foreach ($request->images as $value) {
+                    $path = $value -> store ('product');
+
+                    $columnsImage = [
+                        "product_id" => $product -> id,
+                        "image" => $path,
+                    ];
+
+                    array_push($arrayImage,$columnsImage);
+                }
+                ImagesProduct::insert($arrayImage);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+        return redirect() -> back();
+
     }
 
     /**
