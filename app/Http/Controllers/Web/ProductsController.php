@@ -71,7 +71,7 @@ class ProductsController extends Controller
             DB::rollback();
             dd($e);
         }
-        return redirect() -> back();
+        return redirect() -> route("product.index");
 
     }
 
@@ -83,7 +83,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::with(['imageRelation'])->find($id);
+        return view('admin.master.product.detail', compact('product'));
     }
 
     /**

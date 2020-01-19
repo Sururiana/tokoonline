@@ -6,6 +6,12 @@
 <!-- Default box -->
     <div class="box box-primary">
         <div class="box-body">
+            <div>
+                <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary">
+                    <span class="fa fa-plus-left"> Tambah Produk </span>
+                </a>
+            </div>
+
            <div class="table">
                <table class="table table-striped table-hover table-responsive" id="table">
                     <thead>
@@ -31,7 +37,7 @@
                             </td>
                             <td>
                                 {{-- detail | update | hapus --}}
-                                <a href="#!" class="btn btn-xs btn-primary"> <span class="fa fa-external-link"></span> </a>
+                                <a href="{{ route('product.show', $item->id) }}" class="btn btn-xs btn-primary"> <span class="fa fa-external-link"></span> </a>
                                 <a href="#!"class="btn btn-xs btn-success"> <span class="fa fa-edit"></span></a>
                                 <a href="#!"class="btn btn-xs btn-danger"> <span class="fa fa-trash"></span></a>
 
