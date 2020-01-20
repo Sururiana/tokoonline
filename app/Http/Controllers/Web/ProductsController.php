@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ImagesProduct;
@@ -95,7 +96,8 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('admin.master.product.edit', compact('product'));
     }
 
     /**
@@ -107,7 +109,47 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $oldimages = ImagesProduct::where('product_id', $id)->get();
+
+        DB::beginTransaction();
+
+        try {
+            //mengubah data produk
+            $product->update([
+                //kolom-ditabel => inputan-user
+                "product"=> $request ->product,
+                "price"=> $request ->price,
+                "stock"=> $request ->stock,
+                "description"=> $request ->description,
+            ]);
+            //menyimpan-images
+            if ($request->hasFile('images')) {
+                if ( count( $oldimages) >= 0 ) {
+                    foreach ($oldimages as $old) {
+                        Storage::delete($old->image);
+                    }
+                    ImagesProduct::where('product_id', $id)->delete();
+                }
+                $arrayImage = [];
+                foreach ($request->images as $value) {
+                    $path = $value -> store ('product');
+
+                    $columnsImage = [
+                        "product_id" => $product -> id,
+                        "image" => $path,
+                    ];
+
+                    array_push($arrayImage,$columnsImage);
+                }
+                ImagesProduct::insert($arrayImage);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+        return redirect() -> route("product.index");
     }
 
     /**
@@ -118,6 +160,21 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        if ( !$product ) {
+            abort(404);
+        }
+        $oldimages = ImagesProduct::where('product_id', $id)->get();
+        if ( count( $oldimages) >= 0 ) {
+            foreach ($oldimages as $old) {
+                Storage::delete($old->image);
+            }
+            ImagesProduct::where('product_id', $id)->delete();
+        }
+
+        $product->delete();
+
+        return redirect()->route("product.index");
+
     }
 }
