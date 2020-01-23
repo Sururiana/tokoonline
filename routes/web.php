@@ -11,8 +11,12 @@
 |
 */
 
+use App\Models\Transaction;
+
 Route::get('/', function () {
-    return view('auth.login');
+    // return view('auth.login');
+    $code = Transaction::getCOde();
+    dd($code);
 })->middleware('guest');
 
 Auth::routes([ 'register' => false ]);
