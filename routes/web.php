@@ -21,14 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users','Web\UsersController@index')->name('data.users');
-    Route::get('product','Web\ProductsController@index')->name('product.index');
+    Route::resource('product', 'Web\ProductsController');
 
-    Route::get('product/create','Web\ProductsController@create')->name('product.create');
-    Route::post('product','Web\ProductsController@store')->name('product.store');
-    Route::get('product/{idproduct}','Web\ProductsController@show')->name('product.show');
-    Route::get('product/{idproduct}/edit','Web\ProductsController@edit')->name('product.edit');
-    Route::put('product/{idproduct}','Web\ProductsController@update')->name('product.update');
-    Route::delete('product/{idproduct}','Web\ProductsController@destroy')->name('product.destroy');
-
-
+    //dokumentasi awal alur route
+    // Route::get('product','Web\ProductsController@index')->name('product.index');
+    // Route::get('product/create','Web\ProductsController@create')->name('product.create');
+    // Route::post('product','Web\ProductsController@store')->name('product.store');
+    // Route::get('product/{idproduct}','Web\ProductsController@show')->name('product.show');
+    // Route::get('product/{idproduct}/edit','Web\ProductsController@edit')->name('product.edit');
+    // Route::put('product/{idproduct}','Web\ProductsController@update')->name('product.update');
+    // Route::delete('product/{idproduct}','Web\ProductsController@destroy')->name('product.destroy');
 });
