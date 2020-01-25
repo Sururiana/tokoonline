@@ -27,4 +27,12 @@ class Transaction extends Model
 
         return $string.$number;
     }
+
+    public function detailRelation(){
+        return $this->hasMany(\App\Models\DetailsTransaction::class, 'transaction_id', 'id');
+    }
+
+    public function userRelation(){
+        return $this->hasOne(\App\Models\User::class, 'id', 'user_id');
+    }
 }

@@ -144,6 +144,15 @@
 					</ul>
 				</li>
 
+				<li class="treeview">
+					<a href="{{ route('transaction.index')}}">
+						<i class="fa fa-shopping-cart"></i> <span>Transaction</span>
+						<span class="pull-right-container">
+							{{-- <i class="fa fa-angle-left pull-right"></i> --}}
+						</span>
+					</a>
+				</li>
+
 			</ul>
 		</section>
 		<!-- /.sidebar -->

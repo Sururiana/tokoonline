@@ -11,12 +11,11 @@
 |
 */
 
-use App\Models\Transaction;
 
 Route::get('/', function () {
-    // return view('auth.login');
-    $code = Transaction::getCOde();
-    dd($code);
+    return view('auth.login');
+    // $code = Transaction::getCOde();
+    // dd($code);
 })->middleware('guest');
 
 Auth::routes([ 'register' => false ]);
@@ -26,6 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users','Web\UsersController@index')->name('data.users');
     Route::resource('product', 'Web\ProductsController');
+    Route::resource('transaction', 'Web\TransactionWebController', [
+        'only' => ['index', 'show', 'edit', 'update'],
+    ]);
+
 
     //dokumentasi awal alur route
     // Route::get('product','Web\ProductsController@index')->name('product.index');
