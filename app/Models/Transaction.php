@@ -13,6 +13,10 @@ class Transaction extends Model
     protected $guarded = ['id'];
     //guarded adalah kolom yg tidak boleh di isi
 
+    protected $dates = [
+        'created_at', 'update_at', 'date_transaction'
+    ];
+
     public function scopeGetCode($query)
     {
         //TR00001
