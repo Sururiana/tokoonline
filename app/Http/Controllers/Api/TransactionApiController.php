@@ -45,6 +45,7 @@ class TransactionApiController extends Controller
             $tr = new Transaction();
             $tr->transaction_code = Transaction::getCode();
             $tr->user_id = $request->user_id;
+            $tr->phone = $request->phone;
             $tr->destination = $request->destination;
             $tr->ongkir = $request->ongkir;
             $tr->grandtotal = $request->grandtotal;
@@ -117,7 +118,7 @@ class TransactionApiController extends Controller
 
             if ($status != null) {
                 if ($status == 'unpaid') {
-                    $query->whereIn('status_transaction', ['waiting', 'pending']);
+                    $query->whereIn('status_transaction', ['waiting', 'pending', 'downpay']);
                 } elseif ($status == 'paid') {
                     $query->whereIn('status_transaction', ['process', 'send']);
                 }
@@ -144,7 +145,8 @@ class TransactionApiController extends Controller
 
     public function upload(Request $request, $code)
     {
-        $tr = Transaction::where('transaction_code', $code)->first();
+        $tr = Transaction::where('transaction_code', $code)
+                ->whereIn('status_transaction',['waiting','downpay'])->first();
 
         if ($tr == null) {
             return Response::json([
@@ -155,7 +157,7 @@ class TransactionApiController extends Controller
             ],404);
         }
 
-        if (! $request->hasFile('bukti')) {
+        if (! $request->hasFile('foto')) {
             return Response::json([
                 "status" => [
                     "code" => 403,
@@ -164,7 +166,7 @@ class TransactionApiController extends Controller
             ],403);
         }
 
-        $path = $request->file('bukti')->store('transaction');
+        $path = $request->file('foto')->store('transaction');
 
         $tr->update([
             'proof_of_payment' => $path,
@@ -177,5 +179,71 @@ class TransactionApiController extends Controller
                 "description" => "Update Accepted!",
             ]
         ],202);
+    }
+
+
+    public function downPayment(Request $request, $code)
+    {
+        $tr = Transaction::where('transaction_code', $code)
+                ->where('status_transaction','waiting')->first();
+
+        if ($tr == null) {
+            return Response::json([
+                "status" => [
+                    "code" => 404,
+                    "description" => "Not Found",
+                ]
+            ],404);
+        }
+
+        if (! $request->hasFile('foto')) {
+            return Response::json([
+                "status" => [
+                    "code" => 403,
+                    "description" => "Bad Request",
+                ]
+            ],403);
+        }
+
+        $path = $request->file('foto')->store('dp');
+
+        $tr->update([
+            'down_payment' => $path,
+            'status_transaction' => 'downpay',
+        ]);
+
+        return Response::json([
+            "status" => [
+                "code" => 202,
+                "description" => "Update Accepted!",
+            ]
+        ],202);
+    }
+
+
+
+    public function send($code)
+    {
+        $tr = Transaction::where('transaction_code', $code)
+                ->where('status_transaction','process')->first();
+
+            if ($tr == null) {
+                return Response::json([
+                    "status" => [
+                        "code" => 404,
+                        "description" => "Not Found",
+                    ]
+                ],404);
+            }
+            $tr->update([
+                'status_transaction' => 'send',
+            ]);
+
+            return Response::json([
+                "status" => [
+                    "code" => 202,
+                    "description" => "Update Accepted!",
+                ]
+            ],202);
     }
 }

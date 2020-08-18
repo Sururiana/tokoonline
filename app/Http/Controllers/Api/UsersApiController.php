@@ -141,4 +141,31 @@ class UsersApiController extends Controller
             ]
         ])->response()->setStatusCode(202);
     }
+
+    public function setToken(Request $request, $iduser)
+    {
+        $query = User::where('id',$iduser)->first();
+        if($query == null){
+            return Response::json([
+                'status' => [
+                    'code' => 404,
+                    'description' => 'User Not Found'
+                ]
+                ],404);
+        }else {
+            $query->update([
+                'token_firebase' => $request->token,
+            ]);
+
+            return (new UsersResource($query))
+                ->additional([
+                    'status' => [
+                        'code' => 202,
+                        'description' => 'update successfully!!'
+                    ]
+                ])->response()->setStatusCode(202);
+        }
+
+        //firebase token
+    }
 }

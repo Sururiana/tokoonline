@@ -36,6 +36,7 @@ Route::post('auth/login','Api\UsersApiController@login');
 Route::get('logout/{iduser}','Api\UsersApiController@logout');
 Route::post('auth/register','Api\UsersApiController@register');
 Route::post('auth/update/{iduser}','Api\UsersApiController@update');
+Route::post('auth/firebase-token/{iduser}','Api\UsersApiController@setToken');
 
 //Route product
 Route::get('products','Api\ProductController@products');
@@ -45,5 +46,10 @@ Route::get('product/{idproduct}','Api\ProductController@product');
 Route::get('transaction', 'Api\TransactionApiController@index');
 Route::post('transaction', 'Api\TransactionApiController@store');
 Route::get('transaction/{code}', 'Api\TransactionApiController@detail');
+
 Route::get('transaction-user/{iduser}/{status?}', 'Api\TransactionApiController@byUser');
 Route::post('upload/{codetra}','Api\TransactionApiController@upload');
+Route::post('dpayment/{codetra}','Api\TransactionApiController@downPayment');
+Route::get('send/{codetra}','Api\TransactionApiController@send');
+
+Route::get('notification/{userid}','Api\NotificationController@byUser');

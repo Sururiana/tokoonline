@@ -12,19 +12,33 @@ class ProductResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+    // public function toArray($request)
+    // {
+    //     // return parent::toArray($request);
+    //     return [
+    //         'id' => $this ->id,
+    //         'product' => ucfirst($this ->product),
+    //         'price' => (int) $this ->price,
+    //         'stock' => (int) $this ->stock,
+    //         'description' => $this ->description,
+    //         'image' => $this ->whenLoaded(
+    //             'latestImage',
+    //             asset('uploads/'.$this->latestImage->first()->image)
+    //         ),
+    //         'images' => ImagesResource::collection($this->whenLoaded('imageRelation'))
+    //     ];
+    // }
+
     public function toArray($request)
     {
         // return parent::toArray($request);
         return [
-            'id' => $this ->id,
-            'product' => ucfirst($this ->product),
-            'price' => (int) $this ->price,
-            'stock' => (int) $this ->stock,
-            'description' => $this ->description,
-            'image' => $this ->whenLoaded(
-                'latestImage',
-                asset('uploads/'.$this->latestImage->first()->image)
-            ),
+            'id' => $this->id,
+            'product' => ucfirst($this->product),
+            'price' => (int) $this->price,
+            'stock' => (int) $this->stock,
+            'description' => $this->description,
+            'image' => ($this->image == null) ? null : url('uploads/'.$this->image),
             'images' => ImagesResource::collection($this->whenLoaded('imageRelation'))
         ];
     }

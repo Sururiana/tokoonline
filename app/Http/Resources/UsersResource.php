@@ -23,6 +23,7 @@ class UsersResource extends JsonResource
             // 'date' => $this ->created_at->diffForHumans(),
             'api_token' =>$this ->api_token,
             'is_admin' =>$this->is_admin,
+            'token_firebase' =>$this->token_firebase
         ];
     }
 }

@@ -24,12 +24,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users','Web\UsersController@index')->name('data.users');
+    Route::get('kas','Web\KasController@index')->name('kas.index');
     Route::resource('product', 'Web\ProductsController');
     Route::resource('transaction', 'Web\TransactionWebController', [
         'only' => ['index', 'show', 'edit', 'update'],
     ]);
 
-
+    Route::get('update-status/{id}','Web\TransactionWebController@updateProcess')
+    ->name('transaction.status');
     //dokumentasi awal alur route
     // Route::get('product','Web\ProductsController@index')->name('product.index');
     // Route::get('product/create','Web\ProductsController@create')->name('product.create');

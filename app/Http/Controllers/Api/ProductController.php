@@ -14,10 +14,19 @@ class ProductController extends Controller
 {
     public function products(Request $request)
     {
-        $query = Product::with(['latestImage'])->select('*')->orderBy('product','asc');
-        if ($request->search != null) {
-            $query->where('product','like','%'.$request->search.'%');
-        }
+        // $query = Product::with(['latestImage'])->select('*')->orderBy('product','asc');
+        // if ($request->search != null) {
+        //     $query->where('product','like','%'.$request->search.'%');
+        // }
+
+        $singleImage = DB::raw( " (select coalesce(image,null) from images_product
+        where products.id = images_product.product_id order by images_product.id desc limit 1  ) as image " );
+
+        $query = Product::select('*',$singleImage)->orderBy('product','asc');
+
+            if($request->search != null){
+                $query->where('product','like','%'.$request->search.'%');
+            }
 
         $product = $query->paginate(15);
 

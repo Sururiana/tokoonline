@@ -20,11 +20,14 @@ class CreateTransactionsTable extends Migration
             $table->string('resi_code',50)->nullable();
             $table->bigInteger('user_id');
             $table->string('kurir')->nullable();
+            $table->string('phone')->nullable();
             $table->text('destination')->nullable();
             $table->decimal('ongkir',15,2)->nullable();
-            $table->enum('status_transaction',['waiting', 'pending', 'process', 'send'])->default('waiting');
+            $table->enum('status_transaction',['waiting', 'downpay', 'pending', 'process', 'send'])->default('waiting');
             //type data enum adalah enumurasi, type data yg hanya di isi oleh yg sudah di definisikan
-            $table->date('date_transaction')->default(DB::raw('CURRENT_TIMESTAMP'));
+            // $table->date('date_transaction')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->date('date_transaction');
+            $table->text('down_payment')->nullable();
             $table->text('proof_of_payment')->nullable();
             $table->decimal('grandtotal');
             $table->timestamps();

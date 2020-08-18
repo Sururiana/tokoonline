@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DetailsTransaction;
+use App\Models\Notification;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Redirect;
 
 class TransactionWebController extends Controller
 {
@@ -57,5 +59,37 @@ class TransactionWebController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function updateProcess($id)
+    {
+        // return $id;
+        $tra = Transaction::where('id', $id)
+            ->where('status_transaction','pending')
+            ->first();
+
+        if ($tra == null) {
+            return redirect()->back();
+        }
+
+        $description = "Pembayaran Transaksi $tra->transaction_code sudah di terima oleh penjual";
+
+        Notification::insert([
+            'user_id' => $tra->user_id,
+            'transaction_id' => $tra->id,
+            'transaction_code' => $tra->transaction_code,
+            'description' => $description,
+        ]);
+
+        $tra->update([
+            'status_transaction' => 'process',
+        ]);
+
+        return redirect()->back()->with([
+            'status'=> [
+                'code' => 200,
+                'description' => 'Success'
+            ]
+        ]);
     }
 }

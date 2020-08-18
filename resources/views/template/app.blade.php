@@ -18,6 +18,9 @@
 			 folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="{{URL::asset('dist/css/skins/_all-skins.min.css')}}">
 
+	{{-- datepickercss --}}
+	<link rel="stylesheet" href="{{URL::asset('dist\air-datepicker\dist\css\datepicker.css')}}">
+
 	@stack('customcss')
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -153,6 +156,15 @@
 					</a>
 				</li>
 
+				<li class="treeview">
+					<a href="{{ route('kas.index')}}">
+						<i class="fa fa-bar-chart"></i> <span>Keuangan</span>
+						<span class="pull-right-container">
+							{{-- <i class="fa fa-angle-left pull-right"></i> --}}
+						</span>
+					</a>
+				</li>
+
 			</ul>
 		</section>
 		<!-- /.sidebar -->
@@ -204,6 +216,9 @@
 <script src="{{URL::asset('dist/js/app.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{URL::asset('dist/js/demo.js')}}"></script>
+
+<script src="{{URL::asset('dist\air-datepicker\dist\js\datepicker.js')}}"></script>
+<script src="{{URL::asset('dist\air-datepicker\dist\js\i18n\datepicker.en.js')}}"></script>
 
 @stack('customscript')
 </body>

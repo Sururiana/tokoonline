@@ -16,9 +16,19 @@ class UsersTableSeeder extends Seeder
 
         $users = [
             [
-                'name' => 'Admin Ganteng',
+                'name' => 'Admin Sejati',
                 'email' => 'admin@admin.com',
                 'username' => 'admin',
+                'password' => bcrypt('admin987'),
+                'email_verified_at' => Carbon::now(),
+                'api_token' => str_random(18),
+                'is_admin' => true,
+                'created_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Admin Sejati 2',
+                'email' => 'admin2@admin.com',
+                'username' => 'admin2',
                 'password' => bcrypt('admin987'),
                 'email_verified_at' => Carbon::now(),
                 'api_token' => str_random(18),

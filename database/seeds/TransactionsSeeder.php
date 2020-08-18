@@ -20,11 +20,14 @@ class TransactionsSeeder extends Seeder
                 'transaction_code' => 'TR00001',
                 'resi_code' => NULL,
                 'ongkir' => '50000.00',
+                'phone' => '081081208122',
                 'destination' => 'surabaya',
                 'grandtotal' => '100000',
                 'date_transaction' => Carbon::now(),
                 'status_transaction' => 'waiting',
-                'proof_of_payment' => 'transaction/c7psDj2cA2doWBUgYwjSvoruc0jNCGeqeLDPimxh.jpeg',
+                // 'proof_of_payment' => 'transaction/c7psDj2cA2doWBUgYwjSvoruc0jNCGeqeLDPimxh.jpeg',
+                'down_payment' => null,
+                'proof_of_payment' => null,
                 'created_at' => Carbon::now()
             ),
             array(
@@ -32,11 +35,14 @@ class TransactionsSeeder extends Seeder
                 'transaction_code' => 'TR00002',
                 'resi_code' => NULL,
                 'ongkir' => '50000.00',
+                'phone' => '081081208123',
                 'destination' => 'surabaya',
                 'grandtotal' => '190000.00',
                 'date_transaction' => Carbon::now(),
-                'status_transaction' => 'pending',
-                'proof_of_payment'=> 'transaction/jAPBZVEgVQaUvppcsVGVQ2r2ixqLNV6etECCpLlJ.png',
+                'status_transaction' => 'waiting',
+                // 'proof_of_payment'=> 'transaction/jAPBZVEgVQaUvppcsVGVQ2r2ixqLNV6etECCpLlJ.png',
+                'down_payment' => null,
+                'proof_of_payment' => null,
                 'created_at' => Carbon::now()
             ),
         );
