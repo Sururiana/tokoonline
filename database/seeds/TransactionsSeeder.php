@@ -51,7 +51,7 @@ class TransactionsSeeder extends Seeder
             array(
                 'transaction_id' => '1',
                 'product_id' => '1',
-                'product' => 'hoodie',
+                'product' => 'produk contoh 1',
                 'qty' => '2',
                 'price' => '90000.00',
                 'total' => '100000',
@@ -59,7 +59,7 @@ class TransactionsSeeder extends Seeder
             array(
                 'transaction_id' => '2',
                 'product_id' => '2',
-                'product' => 'Celana pendek joger',
+                'product' => 'produk contoh 2',
                 'qty' => '2',
                 'price' => '90000.00',
                 'total' => '180000.00',
@@ -67,7 +67,7 @@ class TransactionsSeeder extends Seeder
             array(
                 'transaction_id' => '2',
                 'product_id' => '1',
-                'product' => 'hoodie',
+                'product' => 'produk contoh 3',
                 'qty' => '1',
                 'price' => '300000.00',
                 'total' => '100000',

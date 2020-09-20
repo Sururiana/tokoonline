@@ -20,11 +20,22 @@ Route::get('/', function () {
 
 Auth::routes([ 'register' => false ]);
 
+Route::get('/user', function () {
+    return view('user');
+    // $code = Transaction::getCOde();
+    // dd($code);
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users','Web\UsersController@index')->name('data.users');
     Route::get('kas','Web\KasController@index')->name('kas.index');
+
+    Route::get('keuangan','Web\KeuanganController@index')->name('keuangan.index');
+    Route::post('keuangan','Web\KeuanganController@index')->name('keuangan.index');
+
+    Route::get('cetak_excel','Web\KasController@cetak_excel')->name('kas.cetak_excel');
     Route::resource('product', 'Web\ProductsController');
     Route::resource('transaction', 'Web\TransactionWebController', [
         'only' => ['index', 'show', 'edit', 'update'],

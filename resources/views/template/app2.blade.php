@@ -156,14 +156,8 @@
 					</a>
 				</li>
 
-				{{-- <li class="treeview">
-					<a href="{{ route('kas.index')}}">
-						<i class="fa fa-bar-chart"></i> <span>Keuangann</span>
-					</a>
-				</li> --}}
-
 				<li class="treeview">
-					<a href="{{ route('keuangan.index')}}">
+					<a href="{{ route('kas.index')}}">
 						<i class="fa fa-bar-chart"></i> <span>Keuangan</span>
 						<span class="pull-right-container">
 							{{-- <i class="fa fa-angle-left pull-right"></i> --}}

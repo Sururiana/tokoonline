@@ -6,8 +6,9 @@
 <!-- Default box -->
     <div class="box box-primary">
         <div class="box-body">
+          <a class="btn btn-danger"  href="{{ route('kas.cetak_excel') }}">Cetak</a>
             @if( Request::get('start_date') != "" && Request::get('end_date') != "")
-              <a class="btn btn-success"  href="{{ route('kas.index') }}">Semua</a>
+              <a class="btn btn-success"  href="{{ route('kas.index') }}">Semua Data</a>
             @endif
               <br/>
               <br/>

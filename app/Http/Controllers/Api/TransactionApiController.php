@@ -69,7 +69,7 @@ class TransactionApiController extends Controller
                 $dtl->product = $product->product;
                 $dtl->product_id = $detail['product_id'];
                 $dtl->qty = $detail['qty'];
-                $dtl->price = $detail['qty'];
+                $dtl->price = $detail['price'];
                 $dtl->total = $detail['total'];
                 $dtl->save();
 
